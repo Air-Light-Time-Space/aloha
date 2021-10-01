@@ -1,3 +1,7 @@
+// This is a simple jitsi bot to facilitate virtual meetings.
+//
+// This file released under the MIT license. See LICENSE file for more details.
+//
 // (c) 2021  the Society of Air Light Time & Space
 // (c) 2021  Noah T
 
