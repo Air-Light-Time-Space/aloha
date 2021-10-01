@@ -124,8 +124,8 @@ function connectToJitsi(key, start) {
 var state = "inactive";
 
 const keyopts = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+  key: fs.readFileSync('privkey.pem'),
+  cert: fs.readFileSync('fullchain.pem')
 };
 
 https.createServer(keyopts, function (request, response) {
