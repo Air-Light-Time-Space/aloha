@@ -26,6 +26,7 @@ disconnects as well so as to avoid wasting resources.
 
 Create a new file at */lib/systemd/system/aloha.service* with the following contents.
 Change the WorkingDirectory and ExecStart paths as appropriate:
+    
     [Unit]
     Description=aloha jitsi bot
     After=network-online.target
@@ -39,6 +40,7 @@ Change the WorkingDirectory and ExecStart paths as appropriate:
     WantedBy=multi-user.target
 
 Then:
+    
     $ systemctl daemon-reload
     $ systemctl enable aloha
     $ systemctl restart aloha
