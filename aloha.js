@@ -8,6 +8,7 @@
 const https = require('https');
 const fs = require('fs');
 const puppeteer = require ('puppeteer');
+const crypto = require('crypto');
 
 const botName = "ALTBot";
 const jitsiServer = "meet.jit.si";
@@ -15,15 +16,10 @@ const jitsiServer = "meet.jit.si";
 const listenPort = 8000;
 
 function newRoomKey(keyLength) {
-    const charmap = "ABCDEFGHIJKLMNPQRSTUVWXYZ0123456789";
-    let keyString = "";
-    for (let i = 0; i < keyLength; i++) {
-      keyString += charmap[Math.floor(Math.random() * charmap.length)];
-    }
-    return keyString;
+    return (0, crypto.randomBytes)(keyLength / 2).toString('hex');
   }
 
-var roomKey = "000000";
+var roomKey = "00000000";
 var location = 'https://' + jitsiServer + '/altspace_' + roomKey
 
 // Function stolen from stackoverflow:
