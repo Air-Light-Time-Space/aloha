@@ -20,7 +20,8 @@ function newRoomKey(keyLength) {
   }
 
 var roomKey = "00000000";
-var location = 'https://' + jitsiServer + '/altspace_' + roomKey
+var location = 'https://' + jitsiServer + '/altspace_' + roomKey;
+var startTime = new Date();
 
 // Function stolen from stackoverflow:
 // https://stackoverflow.com/questions/19700283/how-to-convert-time-in-milliseconds-to-hours-min-sec-format-in-javascript
@@ -129,7 +130,7 @@ https.createServer(keyopts, function (request, response) {
     console.log(request.connection.remoteAddress + " requested " + url);
     if (url == "/") {
         if (state == "inactive") {
-            var startTime = new Date(Date.now())
+            startTime = new Date(Date.now())
             roomKey = newRoomKey(roomKey.length);
             location = 'https://' + jitsiServer + '/altspace_' + roomKey
             state = connectToJitsi(roomKey, startTime);
@@ -146,8 +147,14 @@ https.createServer(keyopts, function (request, response) {
             'Location': location
         });
     } else if (url == "/status") {
-        response.writeHead(200, {"Content-Type": "text/plain"});
-        response.write("State: " + state);
+        response.writeHead(200, {"Content-Type": "text/html"});
+        response.write("<html><head><title>Meeting Status</title></head><body><table>");
+        response.write("<tr><td>State:</td><td>" + state + "</td></tr>");
+        if (state == "active") {
+            response.write("<tr><td>Start time:</td><td>" + startTime + "</td></tr>");
+            response.write("<tr><td>Location:</td><td>" + location + "</td></tr>");
+        };
+        response.write("</table></body></html>");
     } else {
         response.writeHead(404, {"Content-Type": "text/plain"});
         response.write("404 Not Found\n");
