@@ -127,23 +127,28 @@ const keyopts = {
 https.createServer(keyopts, function (request, response) {
     let { url } = request;
     console.log(request.connection.remoteAddress + " requested " + url);
-    if (state == "inactive") {
-        var startTime = new Date(Date.now())
-        roomKey = newRoomKey(roomKey.length);
-        location = 'https://' + jitsiServer + '/altspace_' + roomKey
-        state = connectToJitsi(roomKey, startTime);
-        // *hat-tip* https://stackoverflow.com/questions/10645994/how-to-format-a-utc-date-as-a-yyyy-mm-dd-hhmmss-string-using-nodejs
-        let timeStamp = startTime.
-            toISOString().
-            replace(/T/, ' ').
-            replace(/\..+/, '');
-       // console.log(timeStamp)
-        console.log(timeStamp + " - New meeting started...");
-        console.log(location);
+    if (url == "/") {
+        if (state == "inactive") {
+            var startTime = new Date(Date.now())
+            roomKey = newRoomKey(roomKey.length);
+            location = 'https://' + jitsiServer + '/altspace_' + roomKey
+            state = connectToJitsi(roomKey, startTime);
+            // *hat-tip* https://stackoverflow.com/questions/10645994/how-to-format-a-utc-date-as-a-yyyy-mm-dd-hhmmss-string-using-nodejs
+            let timeStamp = startTime.
+                toISOString().
+                replace(/T/, ' ').
+                replace(/\..+/, '');
+           // console.log(timeStamp)
+            console.log(timeStamp + " - New meeting started...");
+            console.log(location);
+        };
+        response.writeHead(302, {
+            'Location': location
+        });
+    } else {
+        response.writeHead(404, {"Content-Type": "text/plain"});
+        response.write("404 Not Found\n");
     };
-    response.writeHead(302, {
-        'Location': location
-    });
     response.end();
 }).listen(listenPort);
 
