@@ -145,6 +145,9 @@ https.createServer(keyopts, function (request, response) {
         response.writeHead(302, {
             'Location': location
         });
+    } else if (url == "/status") {
+        response.writeHead(200, {"Content-Type": "text/plain"});
+        response.write("State: " + state);
     } else {
         response.writeHead(404, {"Content-Type": "text/plain"});
         response.write("404 Not Found\n");
