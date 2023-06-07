@@ -5,7 +5,7 @@
 // (c) 2021  the Society of Air Light Time & Space
 // (c) 2021  Noah T
 
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const puppeteer = require ('puppeteer');
 const crypto = require('crypto');
@@ -120,12 +120,7 @@ function connectToJitsi(key, start) {
 
 var state = "inactive";
 
-const keyopts = {
-  key: fs.readFileSync('privkey.pem'),
-  cert: fs.readFileSync('fullchain.pem')
-};
-
-https.createServer(keyopts, function (request, response) {
+http.createServer(function (request, response) {
     let { url } = request;
     console.log(request.connection.remoteAddress + " requested " + url);
     if (url == "/") {
