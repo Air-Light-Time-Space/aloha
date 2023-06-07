@@ -1,0 +1,11 @@
+[Unit]
+Description=aloha jitsi bot
+After=network-online.target
+
+[Service]
+Restart=on-failure
+WorkingDirectory=/sites/aloha
+ExecStart=/usr/local/bin/node /sites/aloha/aloha.js
+
+[Install]
+WantedBy=multi-user.target

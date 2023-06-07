@@ -26,22 +26,15 @@ disconnects as well so as to avoid wasting resources.
 
 #### Setting up as systemd service:
 
-Create a new file at */lib/systemd/system/aloha.service* with the following contents.
-Change the WorkingDirectory and ExecStart paths as appropriate:
-    
-    [Unit]
-    Description=aloha jitsi bot
-    After=network-online.target
+Update *aloha.service* with the appropriate WorkingDirectory and ExecStart.
 
-    [Service]
-    Restart=on-failure
-    WorkingDirectory=/path/to/aloha
-    ExecStart=/usr/bin/node /path/to/aloha/aloha.js
+    $ edit aloha.service
 
-    [Install]
-    WantedBy=multi-user.target
+Install the service.
 
-Then:
+    $ sudo cp aloha.service /lib/systemd/system/aloha.service
+
+Tell systemd about the service.
     
     $ systemctl daemon-reload
     $ systemctl enable aloha
