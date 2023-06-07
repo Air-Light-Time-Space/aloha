@@ -22,27 +22,28 @@ disconnects as well so as to avoid wasting resources.
     $ cd aloha
 
 ### Install dependencies:
-    $ npm install
+    $ (cd app && npm install)
 
-#### Setting up as systemd service:
+## Deployment
 
-Create a new file at */lib/systemd/system/aloha.service* with the following contents.
-Change the WorkingDirectory and ExecStart paths as appropriate:
+### Add a user
+
+Add an unprivileged system user to run the app
+
+    $ sudo useradd -r aloha -s /bin/false
+
+### Setting up as systemd service:
+
+Update *aloha.service* with the appropriate WorkingDirectory and ExecStart.
+
+    $ edit aloha.service
+
+Install the service.
+
+    $ sudo cp aloha.service /lib/systemd/system/aloha.service
+
+Tell systemd about the service.
     
-    [Unit]
-    Description=aloha jitsi bot
-    After=network-online.target
-
-    [Service]
-    Restart=on-failure
-    WorkingDirectory=/path/to/aloha
-    ExecStart=/usr/bin/node /path/to/aloha/aloha.js
-
-    [Install]
-    WantedBy=multi-user.target
-
-Then:
-    
-    $ systemctl daemon-reload
-    $ systemctl enable aloha
-    $ systemctl restart aloha
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl enable aloha
+    $ sudo systemctl restart aloha

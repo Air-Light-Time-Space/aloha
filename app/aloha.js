@@ -5,7 +5,7 @@
 // (c) 2021  the Society of Air Light Time & Space
 // (c) 2021  Noah T
 
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const puppeteer = require ('puppeteer');
 const crypto = require('crypto');
@@ -112,20 +112,17 @@ function connectToJitsi(key, start) {
         await page.goto(`data:text/html,${html}`);
         await page.evaluate(`window.createRoom("${jitsiServer}", "${roomName}", "${botName}");`);
         const frame = page.frames().find(frame => frame.url() === '');
-        await frame.waitForSelector('.action-btn');
-        await frame.click('div[data-testid="prejoin.joinMeeting"]');
+
+        let joinBtnSelector = 'div[data-testid="prejoin.joinMeeting"]';
+        await frame.waitForSelector(joinBtnSelector);
+        await frame.click(joinBtnSelector);
     })();
     return "active";
   }
 
 var state = "inactive";
 
-const keyopts = {
-  key: fs.readFileSync('privkey.pem'),
-  cert: fs.readFileSync('fullchain.pem')
-};
-
-https.createServer(keyopts, function (request, response) {
+http.createServer(function (request, response) {
     let { url } = request;
     console.log(request.connection.remoteAddress + " requested " + url);
     if (url == "/") {
