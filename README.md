@@ -24,7 +24,15 @@ disconnects as well so as to avoid wasting resources.
 ### Install dependencies:
     $ (cd app && npm install)
 
-#### Setting up as systemd service:
+## Deployment
+
+### Add a user
+
+Add an unprivileged system user to run the app
+
+    $ sudo useradd -r aloha -s /bin/false
+
+### Setting up as systemd service:
 
 Update *aloha.service* with the appropriate WorkingDirectory and ExecStart.
 
@@ -36,6 +44,6 @@ Install the service.
 
 Tell systemd about the service.
     
-    $ systemctl daemon-reload
-    $ systemctl enable aloha
-    $ systemctl restart aloha
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl enable aloha
+    $ sudo systemctl restart aloha
