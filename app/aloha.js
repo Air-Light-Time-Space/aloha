@@ -112,8 +112,10 @@ function connectToJitsi(key, start) {
         await page.goto(`data:text/html,${html}`);
         await page.evaluate(`window.createRoom("${jitsiServer}", "${roomName}", "${botName}");`);
         const frame = page.frames().find(frame => frame.url() === '');
-        await frame.waitForSelector('.action-btn');
-        await frame.click('div[data-testid="prejoin.joinMeeting"]');
+
+        let joinBtnSelector = 'div[data-testid="prejoin.joinMeeting"]';
+        await frame.waitForSelector(joinBtnSelector);
+        await frame.click(joinBtnSelector);
     })();
     return "active";
   }
