@@ -4,8 +4,8 @@ After=network-online.target
 
 [Service]
 Restart=on-failure
-WorkingDirectory=/sites/aloha
-ExecStart=/usr/local/bin/node /sites/aloha/aloha.js
+WorkingDirectory=/sites/aloha/app
+ExecStart=/usr/local/bin/node /sites/aloha/app/aloha.js
 
 [Install]
 WantedBy=multi-user.target

@@ -22,7 +22,7 @@ disconnects as well so as to avoid wasting resources.
     $ cd aloha
 
 ### Install dependencies:
-    $ npm install
+    $ (cd app && npm install)
 
 #### Setting up as systemd service:
 
