@@ -3,7 +3,7 @@ aloha
 This is a simple nodejs puppeteer script that helps facilitate our meetings on
 jitsi.
 
-**aloha.js** creates a randomly-named jitsi room then listens for https requests. It
+**aloha.js** creates a randomly-named jitsi room then listens for http requests. It
 redirects all visitors to the same room. When everyone has left the room *aloha.js*
 disconnects as well so as to avoid wasting resources.
 
